@@ -59,4 +59,16 @@ router.put('/:id', (req, res, next) => {
   }
 });
 
-router.delete('/:id', (req, res, next) => {});
+router.delete('/:id', (req, res, next) => {
+  try {
+    let studentToRemove = students.find(student => {
+      return student.id === parseInt(req.params.id, 10);
+    });
+    let indexOfStudent = students.indexOf(studentToRemove);
+    students.splice(indexOfStudent, 1);
+    console.log('After deleting student: ', students);
+    res.json(req.body);
+  } catch (error) {
+    next(error);
+  }
+});
